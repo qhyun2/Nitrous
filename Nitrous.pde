@@ -18,7 +18,7 @@ void setup() {
   smooth(2);
 
   loadAssets();
-  lastUpdate = millis()
+  lastUpdate = millis();
 
   ground = new Tile[xSize][ySize];
   float ts = 100; //TileSize
