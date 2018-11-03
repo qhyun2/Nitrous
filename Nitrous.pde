@@ -5,7 +5,7 @@ int y = 100;
 
 Tile[][] ground;
 PVector testPos;
-int distAway = 250;
+int distAway = 350;
 StarterCar vehicle;
 RoadGen roadGen;
 
@@ -14,7 +14,7 @@ void setup() {
   stroke(255);
   frameRate(60);
   smooth(2);
-  
+
   loadAssets();
 
   ground = new Tile[50][50];
@@ -35,7 +35,7 @@ void setup() {
 void draw() {
   background(135, 206, 235);
   translate(width/2, height/2);
-  camera(distAway, distAway, distAway, /*Position of the camera itself*/
+  camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
     0, 0, 0, /*Point the camera looks towards*/
     0, 0, -1.0); /*Axis control*/
 
@@ -48,9 +48,9 @@ void draw() {
   translate(0, 0, 1);
   noFill();
   strokeWeight(10);
-  
-   vehicle.update();
-   vehicle.display();
+
+  vehicle.update();
+  vehicle.display();
 }
 
 void keyPressed() {
