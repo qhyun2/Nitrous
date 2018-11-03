@@ -1,14 +1,42 @@
+class Collider {
+  PShape obj;
+  int type;
+  float scale;
+  Collider(int type) {
+    this.type = type;
+    switch (type) {
+      case 0: //Tree, bitch
+        scale = 20;
+        break;
+      case 1: //Those buildy things
+        scale = 27.5;
+        break;
+      case 2: //Ding Dong the clunk has sung
+        scale = 100;
+        break;
+      default: //If u were dumm and didn't pass the write thing
+        scale = 20;
+        break;
+    }
+  }
+  
+  void display() {
+    scale(scale);
+    rotateX(HALF_PI);
+    shape(obst[type], 0, 0);
+  }
+  
+}
+
 int BLANK = 0;
 int ROAD = 1;
-int TREE = 2;
-int BUILDING = 3;
-int CLOCKTOWER = 4;
 float noiseScale = 0.02;
 
 class Tile {
   PVector pos, displaypos;
   float w, h;
   int type;
+  Collider obstacle;
   //type of grass or road (replaces grassType)
   int tileType;
 
@@ -29,6 +57,20 @@ class Tile {
     //generate grass patches using perlin noise
     float noiseVal = noise(x*noiseScale, y*noiseScale);
     tileType = int(map(noiseVal,0,1,0,3)); //grass based on noise
+  }
+  
+  Tile(float x, float y, float z, float w, float h, int collideType) {
+    pos = new PVector(x, y, z);
+    displaypos = new PVector(x, y, z);
+    obstacle = new Collider(collideType);
+    this.w = w;
+    this.h = h;
+    if (random(1) < 0.95) {
+      type = BLANK;
+    } else {
+      type = floor(random(2, 5));
+    }
+    grassType = floor(random(3)); //random int between 0 & 2
   }
 
   void update(PVector tracked) {
@@ -55,28 +97,11 @@ class Tile {
       } else {
         image(grass[tileType], 0, 0, this.w, this.h);
       }
-
-      //Draw Extra embellishments
-      if (type == TREE) {
-        scale(20);
-        rotateX(HALF_PI);
-        shape(tree, 0, 0);
-      } else if (type == BUILDING) {
-        scale(42);
-        rotateX(HALF_PI);
-        shape(building, 0, 0);
-      } else if (type == CLOCKTOWER) {
-        scale(35);
-        rotateX(HALF_PI);
-        shape(clocktower, 0, 0);
+      if (this.obstacle != null) {
+        obstacle.display();
       }
+      
       popMatrix();
     }
   }
-}
-
-//make roads match surrounding roads
-void updateRoads()
-{
-  
 }

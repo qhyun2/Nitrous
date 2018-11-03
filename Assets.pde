@@ -1,6 +1,11 @@
 PImage[] roads;
 PImage[] grass;
-PShape car1, tree, building, clocktower;
+PShape car1;
+PShape[] obst = new PShape[3];
+
+int TREE = 0;
+int BUILDING = 1;
+int CLOCKTOWER = 2;
 
 void loadAssets() {
   roads = new PImage[11];
@@ -22,7 +27,7 @@ void loadAssets() {
   }
 
   car1 = loadShape("Assets/Models/testcar.obj");
-  tree = loadShape("Assets/Models/AppleTree.obj");
-  building = loadShape("Assets/Models/Building2.obj");
-  clocktower = loadShape("Assets/Models/ClockTower.obj");
+  obst[TREE] = loadShape("Assets/Models/AppleTree.obj");
+  obst[BUILDING] = loadShape("Assets/Models/Building2.obj");
+  obst[CLOCKTOWER] = loadShape("Assets/Models/ClockTower.obj");
 }
