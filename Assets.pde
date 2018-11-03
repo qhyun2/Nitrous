@@ -1,11 +1,18 @@
 PImage[] roads;
+PImage[] grass;
+PShape car1, tree;
 
-void loadAssets()
-{
-  roads = new PImage[5];
-  roads[0] = loadImage("Assets/Sprites/Landscape/Road/RT1.png");
-  roads[1] = loadImage("Assets/Sprites/Landscape/Road/RT2.png");
-  roads[2] = loadImage("Assets/Sprites/Landscape/Road/RT3.png");
-  roads[3] = loadImage("Assets/Sprites/Landscape/Road/RT4.png");
-  roads[4] = loadImage("Assets/Sprites/Landscape/Road/RT5.png");
+void loadAssets() {
+  roads = new PImage[5];  
+  for (int i = 0; i < roads.length; i++) {
+    roads[i] = loadImage("Assets/Sprites/Landscape/Road/RT" + (i+1) + ".png");
+  }
+  
+  grass = new PImage[3];
+  for (int i = 0; i < grass.length; i++) {
+    grass[i] = loadImage("Assets/Sprites/Landscape/Field/Grass" + (i+1) + ".png");
+  }
+  
+  car1 = loadShape("Assets/Models/testcar.obj");
+  tree = loadShape("Assets/Models/AppleTree.obj");
 }

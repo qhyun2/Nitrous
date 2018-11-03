@@ -4,7 +4,6 @@ class RoadGen {
   int[] roadY;
 
   RoadGen(int sizeX, int sizeY) {
-
     int roadPieces = 300;
     roadX = new int[roadPieces];
     roadY = new int[roadPieces];
@@ -50,13 +49,10 @@ class RoadGen {
       //generate new lenght of road and direction
     }
   }
+  
   void updateTiles() {
     for (int i = 0; i < roadX.length; i++) {
-      ground[roadX[i]][roadY[i]].type = 1;
+      ground[roadX[i]][roadY[i]].type = ROAD;
     }
   }
-}
-
-boolean range(int value, int min, int max) {
-  return value > min && value < max;
 }
