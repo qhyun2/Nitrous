@@ -6,6 +6,7 @@ int y = 100;
 Tile[][] ground;
 PVector testPos;
 int distAway = 250;
+StarterCar vehicle;
 
 void setup() {
   size(1600, 900, P3D);
@@ -21,6 +22,8 @@ void setup() {
 
   testPos = new PVector(0, 0, 0);
   keyW = keyA = keyS = keyD = false;
+
+  vehicle = new StarterCar(0, 0);
 }
 
 void draw() { 
@@ -37,29 +40,33 @@ void draw() {
     }
   }
 
-  if (keyW) testPos.y -= 10;
-  if (keyS) testPos.y += 10;
-  if (keyA) testPos.x -= 10;
-  if (keyD) testPos.x += 10;
+  //if (keyW) testPos.y -= 10;
+  //if (keyS) testPos.y += 10;
+  //if (keyA) testPos.x -= 10;
+  //if (keyD) testPos.x += 10;
 
   translate(0, 0, 1);
   noFill();
   strokeWeight(10);
   stroke(255);
   line(0, 0, 0, 10, 0, 0);
+  
+   vehicle.update();
+   vehicle.display();
 }
 
 void keyPressed() {
-  if (key == 'w' || key == 'W') keyW = true;
-  if (key == 's' || key == 'S') keyS = true;
-  if (key == 'a' || key == 'A') keyA = true;
-  if (key == 'd' || key == 'D') keyD = true;
+
+  if (key == 'w' || key == 'W' || keyCode == 38) keyW = true;
+  if (key == 's' || key == 'S' || keyCode == 40) keyS = true;
+  if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;
+  if (key == 'd' || key == 'D' || keyCode == 39) keyD = true;
   //if (keyCode == 32) spacebar = true;
 }
 
 void keyReleased() {
-  if (key == 'w' || key == 'W') keyW = false;
-  if (key == 's' || key == 'S') keyS = false;
-  if (key == 'a' || key == 'A') keyA = false;
-  if (key == 'd' || key == 'D') keyD = false;
+  if (key == 'w' || key == 'W' || keyCode == 38) keyW = false;
+  if (key == 's' || key == 'S' || keyCode == 40) keyS = false;
+  if (key == 'a' || key == 'A' || keyCode == 37) keyA = false;
+  if (key == 'd' || key == 'D' || keyCode == 39) keyD = false;
 }
