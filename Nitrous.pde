@@ -41,6 +41,7 @@ void draw() {
     0, 0, -1.0); /*Axis control*/
 
   lights();
+  directionalLight(100, 100, 100, -1, -1, -1.6);
   
   for (int i = 0; i <ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
@@ -67,7 +68,6 @@ void keyPressed() {
   if (key == 's' || key == 'S' || keyCode == 40) keyS = true;
   if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;
   if (key == 'd' || key == 'D' || keyCode == 39) keyD = true;
-  //if (keyCode == 32) spacebar = true;
 }
 
 void keyReleased() {
