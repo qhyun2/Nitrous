@@ -2,19 +2,33 @@ class Vehicle {
   PVector pos;
   float vel = 0, acc = 0;
   float dir;
-  float carWidth;
-  float carLength;
+  float carWidth = 2.5;
+  float carLength = 5.5;
+  float carScale = 20;
   PShape carShape;
+  PShape collider;
   
   Vehicle(float x, float y, PShape iCarShape) {
     pos = new PVector(x, y);
     carShape = iCarShape;
-    carWidth = carShape.width;
-    carLength = carShape.height;
-    print(carWidth, carLength);
+    collider = createShape(
+      RECT,
+      -carLength*carScale/2,
+      -carWidth*carScale/2,
+      carLength*carScale,
+      carWidth*carScale
+    );
+    collider.setStroke(color(255));
+    collider.setStrokeWeight(4);
+    collider.setFill(color(127));
   }
 
   void update() {
+    
+    //collisions:
+    collider.rotate(dir);
+    shape(collider);
+    
     float turningSpeed = 0.01;
 
     //left and right turns
@@ -47,14 +61,13 @@ class StarterCar extends Vehicle {
   void display() {
     pushMatrix();
     {
-      scale(20);
+      scale(carScale);
       rotate(HALF_PI + dir);
       rotateX(HALF_PI);
       rectMode(CENTER);
       fill(225, 128, 0);
       stroke(10);
       strokeWeight(1);
-      //rect(0, 0, 100, 60);
       shape(carShape, 0, 0);
     }
     popMatrix();
