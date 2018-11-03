@@ -1,6 +1,7 @@
 int BLANK = 0;
 int ROAD = 1;
 int TREE = 2;
+int BUILDING = 3;
 
 class Tile {
   PVector pos, displaypos;
@@ -16,7 +17,11 @@ class Tile {
     displaypos = new PVector(x, y, z);
     this.w = w;
     this.h = h;
-    type = (random(1) < 0.95) ? BLANK : TREE;
+    if (random(1) < 0.95) {
+      type = BLANK;
+    } else {
+      type = (random(1) < 0.5) ? TREE : BUILDING;
+    }
     grassType = floor(random(3)); //random int between 0 & 2
   }
 
@@ -41,7 +46,7 @@ class Tile {
       //Draw ground sprite
       if (type == ROAD) {
         image(roads[type], 0, 0, this.w, this.h);
-      } else if (type == TREE || type == BLANK) {
+      } else {
         image(grass[grassType], 0, 0, this.w, this.h);
       }
 
@@ -50,6 +55,10 @@ class Tile {
         scale(20);
         rotateX(HALF_PI);
         shape(tree, 0, 0);
+      } else if (type == BUILDING) {
+        scale(27.5);
+        rotateX(HALF_PI);
+        shape(building, 0, 0);
       }
     }
     popMatrix();
