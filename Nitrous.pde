@@ -23,9 +23,7 @@ void setup() {
     for (int j = 0; j < ground[i].length; j++) {
       float Xpos = -ts * ground.length/2 + ts * i;
       float Ypos = -ts*ground[i].length/2 + ts *j;
-      ground[i][j] = (random(1) < 0.95) ?
-        new Tile(Xpos, Ypos, 0, ts, ts) : 
-        new Tile(Xpos, Ypos, 0, ts, ts, floor(random(2)));
+      ground[i][j] = new Tile(Xpos, Ypos, 0, ts, ts);
     }
   }
 
@@ -37,21 +35,29 @@ void setup() {
 
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
+      
+      boolean nearRoad = testIfRoad(i + 1, j)||testIfRoad(i, j + 1)||testIfRoad(i - 1, j)||testIfRoad(i, j - 1);
+      
+      if(nearRoad && random(1) > 0.8) ground[i][j].addCollider(1);
+      if(random(1) > 0.9) ground[i][j].addCollider(0);
+      
       if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
     }
   }
 }
 
 void draw() {
+  
+  println(frameRate);
   background(135, 206, 235);
   translate(width/2, height/2);
-  //camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
-  //  0, 0, 0, /*Point the camera looks towards*/
-  //  0, 0, -1.0); /*Axis control*/
-
-  camera(0, 0, 6000, /*Position of the camera itself*/
+  camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
     0, 0, 0, /*Point the camera looks towards*/
-    1.0, 0, 0); /*Axis control*/
+    0, 0, -1.0); /*Axis control*/
+
+  //camera(0, 0, 6000, /*Position of the camera itself*/
+  //  0, 0, 0, /*Point the camera looks towards*/
+  //  1.0, 0, 0); /*Axis control*/
 
 
   lights();

@@ -54,7 +54,7 @@ class Collider {
 
 int BLANK = 0;
 int ROAD = 1;
-float noiseScale = 0.02;
+float noiseScale = 0.06;
 
 class Tile {
   PVector pos, displaypos;
@@ -72,21 +72,14 @@ class Tile {
     displaypos = new PVector(x, y, z);
     this.w = w;
     this.h = h;
-
     //generate grass patches using perlin noise
     float noiseVal = noise(x*noiseScale, y*noiseScale);
     tileType = int(map(noiseVal, 0, 1, 0, 3)); //grass based on noise
   }
 
-  Tile(float x, float y, float z, float w, float h, int collideType) {
-    pos = new PVector(x, y, z);
-    displaypos = new PVector(x, y, z);
-    obstacle = new Collider(collideType, w, h);
-    this.w = w;
-    this.h = h;
-    //generate grass patches using perlin noise
-    float noiseVal = noise(x*noiseScale, y*noiseScale);
-    tileType = int(map(noiseVal, 0, 1, 0, 3)); //grass based on noise
+  void addCollider(int type)
+  {
+    obstacle = new Collider(type, w, h);
   }
 
   void update(PVector tracked) {
