@@ -35,7 +35,7 @@ float noiseScale = 0.02;
 class Tile {
   PVector pos, displaypos;
   float w, h;
-  int type;
+  int type = 0;
   Collider obstacle;
   //type of grass or road (replaces grassType)
   int tileType;
@@ -48,11 +48,6 @@ class Tile {
     displaypos = new PVector(x, y, z);
     this.w = w;
     this.h = h;
-    if (random(1) < 0.95) {
-      type = BLANK;
-    } else {
-      type = floor(random(TREE, CLOCKTOWER));
-    }
     
     //generate grass patches using perlin noise
     float noiseVal = noise(x*noiseScale, y*noiseScale);
