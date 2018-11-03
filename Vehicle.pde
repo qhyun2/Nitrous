@@ -9,45 +9,42 @@ class Vehicle {
 
   void update() {
     
-    float turningSpeed = 0.05;
-
+    float turningSpeed = 0.01;
+  
+    //left and right turns
     if (keyA) {
-    dir -= turningSpeed;
+    dir -= turningSpeed * vel;
     }
     if (keyD) {
-    dir += turningSpeed;
+    dir += turningSpeed * vel;
     }
     
+    
+    //gas and break
     if (keyW) {
-    acc += 0.04;
+    acc += 0.03;
     }
     
-    if (keyW) {
-    acc -= 0.05;
+    if (keyS) {
+    acc -= 0.06;
     }
     
+    //acceleration linear decay
     acc -= 0.01;
     
+    //constraints on acceleration
     if(acc < 0)
-    {
       acc = 0;
-    }
-    if(acc > 0.5)
-    {
+    else if(acc > 0.5)
       acc = 0.5;
-    }
-    
     
     vel += acc;
+    
+    //velocity exponetial decay
     vel *= 0.9;
     
     if(vel < 0.01)
-    {
       vel = 0;
-    }
-    
-    println(vel, acc);
-    
     pos.add(PVector.fromAngle(dir).mult(vel));
   }
 }
