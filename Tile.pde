@@ -9,10 +9,10 @@ class Collider {
     this.type = type;
     switch (type) {
     case 0: //Tree, bitch
-      scale = 20;
+      scale = 16;
       break;
     case 1: //Those buildy things
-      scale = 27.5;
+      scale = 32;
       break;
     case 2: //Ding Dong the clunk has sung
       scale = 100;
@@ -24,10 +24,10 @@ class Collider {
 
     borders = createShape(
       RECT, 
-      -w/2, 
-      -h/2, 
-      w, 
-      h
+      -w/4, 
+      -h/4, 
+      w/2, 
+      h/2
       );
     borders.setFill(false);
     borders.setStroke(false);
