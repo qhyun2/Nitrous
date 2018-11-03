@@ -26,15 +26,20 @@ class Vehicle {
   void update() {
     
     //collisions:
-    collider.rotate(dir);
     shape(collider);
     
     float turningSpeed = 0.01;
 
     //left and right turns
-    if (keyA) dir -= turningSpeed * vel * 0.65;
-    if (keyD) dir += turningSpeed * vel * 0.65;
-
+    if (keyA) {
+      dir -= turningSpeed * vel * 0.65;
+      collider.rotate(-turningSpeed * vel * 0.65);
+    }
+    if (keyD) {
+      dir += turningSpeed * vel * 0.65;
+      collider.rotate(turningSpeed * vel * 0.65);
+    }
+    
     //gas and break
     if (keyW) acc += 0.03;
     if (keyS) acc -= 0.06;

@@ -21,7 +21,11 @@ void setup() {
   float ts = 100; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
-      ground[i][j] = new Tile(-ts*ground.length/2 + ts * i, -ts*ground[i].length/2 + ts * j, 0, ts, ts);
+      float Xpos = -ts * ground.length/2 + ts * i;
+      float Ypos = -ts*ground[i].length/2 + ts *j;
+      ground[i][j] = (random(1) < 0.95) ?
+        new Tile(Xpos, Ypos, 0, ts, ts) : 
+        new Tile(Xpos, Ypos, 0, ts, ts, floor(random(2)));
     }
   }
 
@@ -42,7 +46,7 @@ void draw() {
 
   lights();
   directionalLight(100, 100, 100, -1, -1, -1.6);
-  
+
   for (int i = 0; i <ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
       ground[i][j].update(vehicle.pos);
