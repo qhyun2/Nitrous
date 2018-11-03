@@ -5,12 +5,14 @@ int y = 100;
 
 Tile[][] ground;
 PVector testPos;
+PImage img1;
 int distAway = 350;
 int xSize = 50, ySize = 50;
 StarterCar vehicle;
 RoadGen roadGen;
 
 void setup() {
+  img1 = loadImage("splashscreen.jpg");
   size(1600, 900, P3D);
   stroke(255);
   frameRate(60);
@@ -65,6 +67,10 @@ void draw() {
 
   vehicle.update();
   vehicle.display();
+  if (millis() < 3000)//in milliseconds
+  {
+    image(img1, 0, 0);
+  }
 }
 
 //Moved this out here since it's a general function
