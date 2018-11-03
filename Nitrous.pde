@@ -77,7 +77,9 @@ void draw() {
         PVector[] obs = ground[i][j].obstacle.getPoints();
         for (int k = 0; k < obs.length; k++) obs[k].add(ground[i][j].pos);
         if (collidePolyPoly(obs, vehicle.getPoints())) {
-          println(frameCount + " Hit");
+          vehicle.vel = 0;
+          vehicle.acc = 0;
+          ground[i][j].obstacle = null;
         }
       }
     }
