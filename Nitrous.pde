@@ -8,6 +8,8 @@ PVector testPos;
 int distAway = 400;
 int xSize = 50, ySize = 50;
 StarterCar vehicle;
+int delta = 0;
+int lastUpdate;
 
 void setup() {
   size(1600, 900, P3D);
@@ -16,8 +18,9 @@ void setup() {
   smooth(2);
 
   loadAssets();
+  lastUpdate = millis()
 
-  ground = new Tile[xSize][ySize];
+    ground = new Tile[xSize][ySize];
   float ts = 200; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
@@ -35,20 +38,22 @@ void setup() {
 
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
-      
+
       boolean nearRoad = testIfRoad(i + 1, j)||testIfRoad(i, j + 1)||testIfRoad(i - 1, j)||testIfRoad(i, j - 1);
-      
-      if(nearRoad && random(1) > 0.8) ground[i][j].addCollider(1);
-      if(random(1) > 0.9) ground[i][j].addCollider(0);
-      
+
+      if (nearRoad && random(1) > 0.8) ground[i][j].addCollider(1);
+      if (random(1) > 0.9) ground[i][j].addCollider(0);
+
       if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
     }
   }
 }
 
 void draw() {
-  
-  println(frameRate);
+
+  ///update timing functions///
+  delta = lastUpdate - millis();
+  lastUpdate = millis();
   background(135, 206, 235);
   translate(width/2, height/2);
   camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
