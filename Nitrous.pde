@@ -6,6 +6,7 @@ int y = 100;
 Tile[][] ground;
 PVector testPos;
 int distAway = 350;
+int xSize = 50, ySize = 50;
 StarterCar vehicle;
 RoadGen roadGen;
 
@@ -17,20 +18,29 @@ void setup() {
 
   loadAssets();
 
-  ground = new Tile[50][50];
+  ground = new Tile[xSize][ySize];
   float ts = 100; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
-      ground[i][j] = new Tile(-ts*ground.length/2 + ts * i, -ts*ground[i].length/2 + ts * j, 0, ts, ts);
+      float Xpos = -ts * ground.length/2 + ts * i;
+      float Ypos = -ts*ground[i].length/2 + ts *j;
+      ground[i][j] = (random(1) < 0.95) ?
+        new Tile(Xpos, Ypos, 0, ts, ts) : 
+        new Tile(Xpos, Ypos, 0, ts, ts, floor(random(2)));
     }
   }
 
   testPos = new PVector(0, 0, 0);
   keyW = keyA = keyS = keyD = false;
 
-  vehicle = new StarterCar(0, 0);
-  roadGen = new RoadGen(50, 50);
-  roadGen.updateTiles();
+  vehicle = new StarterCar(0, 0, car1);
+  roadGen = new RoadGen(xSize, ySize);
+
+  for (int i = 0; i < ground.length; i++) {
+    for (int j = 0; j < ground[i].length; j++) {
+      if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
+    }
+  }
 }
 
 void draw() {
@@ -41,7 +51,8 @@ void draw() {
     0, 0, -1.0); /*Axis control*/
 
   lights();
-  
+  directionalLight(100, 100, 100, -1, -1, -1.6);
+
   for (int i = 0; i <ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
       ground[i][j].update(vehicle.pos);
@@ -67,7 +78,6 @@ void keyPressed() {
   if (key == 's' || key == 'S' || keyCode == 40) keyS = true;
   if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;
   if (key == 'd' || key == 'D' || keyCode == 39) keyD = true;
-  //if (keyCode == 32) spacebar = true;
 }
 
 void keyReleased() {
