@@ -1,8 +1,12 @@
 int BLANK = 0;
-int ROAD = 1;
-int TREE = 2;
-int BUILDING = 3;
-int CLOCKTOWER = 4;
+int ROAD1 = 1;
+int ROAD2 = 2;
+int ROAD3 = 3;
+int ROAD4 = 4;
+int ROAD5 = 5;
+int TREE = 6;
+int BUILDING = 7;
+int CLOCKTOWER = 8;
 
 class Tile {
   PVector pos, displaypos;
@@ -21,7 +25,7 @@ class Tile {
     if (random(1) < 0.95) {
       type = BLANK;
     } else {
-      type = floor(random(2, 5));
+      type = floor(random(TREE, CLOCKTOWER));
     }
     grassType = floor(random(3)); //random int between 0 & 2
   }
@@ -68,4 +72,10 @@ class Tile {
       popMatrix();
     }
   }
+}
+
+//make roads match surrounding roads
+void updateRoads()
+{
+  
 }
