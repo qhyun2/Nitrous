@@ -41,20 +41,23 @@ class Collider {
     shape(obst[type], 0, 0);
     popMatrix();
 
+    
+  }
+
+  PVector[] getPoints() {
     shape(borders);
-    for (int i = 0; i < borders.getVertexCount(); i++) {
-      PVector points = new PVector(borders.getVertex(i).x, borders.getVertex(i).y);
-      points.rotate(0);
-      strokeWeight(20);
-      stroke(255, 255, 0);
-      point(points.x, points.y, 1);
+    int a = borders.getVertexCount();
+    PVector[] pts = new PVector[a];
+    for (int i = 0; i < a; i++) {
+      pts[i] = new PVector(borders.getVertex(i).x, borders.getVertex(i).y);
     }
+    return pts;
   }
 }
 
 int BLANK = 0;
 int ROAD = 1;
-float noiseScale = 0.02;
+float noiseScale = 0.06;
 
 class Tile {
   PVector pos, displaypos;
@@ -72,21 +75,14 @@ class Tile {
     displaypos = new PVector(x, y, z);
     this.w = w;
     this.h = h;
-
     //generate grass patches using perlin noise
     float noiseVal = noise(x*noiseScale, y*noiseScale);
     tileType = int(map(noiseVal, 0, 1, 0, 3)); //grass based on noise
   }
 
-  Tile(float x, float y, float z, float w, float h, int collideType) {
-    pos = new PVector(x, y, z);
-    displaypos = new PVector(x, y, z);
-    obstacle = new Collider(collideType, w, h);
-    this.w = w;
-    this.h = h;
-    //generate grass patches using perlin noise
-    float noiseVal = noise(x*noiseScale, y*noiseScale);
-    tileType = int(map(noiseVal, 0, 1, 0, 3)); //grass based on noise
+  void addCollider(int type)
+  {
+    obstacle = new Collider(type, w, h);
   }
 
   void update(PVector tracked) {
