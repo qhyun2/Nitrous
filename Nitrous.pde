@@ -3,7 +3,7 @@ int y = 100;
 // The statements in the setup() function 
 // execute once when the program begins
 void setup() {
-  size(640, 360);  // Size must be the first statement
+  size(1600, 900, P3D);  // Size must be the first statement
   stroke(255);     // Set line drawing color to white
   frameRate(30);
 }
