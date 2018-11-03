@@ -1,18 +1,16 @@
 int BLANK = 0;
-int ROAD1 = 1;
-int ROAD2 = 2;
-int ROAD3 = 3;
-int ROAD4 = 4;
-int ROAD5 = 5;
-int TREE = 6;
-int BUILDING = 7;
-int CLOCKTOWER = 8;
+int ROAD = 1;
+int TREE = 2;
+int BUILDING = 3;
+int CLOCKTOWER = 4;
+float noiseScale = 0.02;
 
 class Tile {
   PVector pos, displaypos;
   float w, h;
   int type;
-  int grassType;
+  //type of grass or road (replaces grassType)
+  int tileType;
 
   //probably temporary
   boolean hastree = false;
@@ -27,7 +25,10 @@ class Tile {
     } else {
       type = floor(random(TREE, CLOCKTOWER));
     }
-    grassType = floor(random(3)); //random int between 0 & 2
+    
+    //generate grass patches using perlin noise
+    float noiseVal = noise(x*noiseScale, y*noiseScale);
+    tileType = int(map(noiseVal,0,1,0,3)); //grass based on noise
   }
 
   void update(PVector tracked) {
@@ -50,9 +51,9 @@ class Tile {
 
       //Draw ground sprite
       if (type == ROAD) {
-        image(roads[type], 0, 0, this.w, this.h);
+        image(roads[tileType], 0, 0, this.w, this.h);
       } else {
-        image(grass[grassType], 0, 0, this.w, this.h);
+        image(grass[tileType], 0, 0, this.w, this.h);
       }
 
       //Draw Extra embellishments
