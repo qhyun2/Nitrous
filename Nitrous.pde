@@ -5,10 +5,9 @@ int y = 100;
 
 Tile[][] ground;
 PVector testPos;
-int distAway = 350;
+int distAway = 400;
 int xSize = 50, ySize = 50;
 StarterCar vehicle;
-RoadGen roadGen;
 
 void setup() {
   size(1600, 900, P3D);
@@ -24,9 +23,7 @@ void setup() {
     for (int j = 0; j < ground[i].length; j++) {
       float Xpos = -ts * ground.length/2 + ts * i;
       float Ypos = -ts*ground[i].length/2 + ts *j;
-      ground[i][j] = (random(1) < 0.95) ?
-        new Tile(Xpos, Ypos, 0, ts, ts) : 
-        new Tile(Xpos, Ypos, 0, ts, ts, floor(random(2)));
+      ground[i][j] = new Tile(Xpos, Ypos, 0, ts, ts);
     }
   }
 
@@ -34,10 +31,16 @@ void setup() {
   keyW = keyA = keyS = keyD = false;
 
   vehicle = new StarterCar(0, 0, car1);
-  roadGen = new RoadGen(xSize, ySize);
+  roadGen(xSize, ySize);
 
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
+
+      boolean nearRoad = testIfRoad(i + 1, j)||testIfRoad(i, j + 1)||testIfRoad(i - 1, j)||testIfRoad(i, j - 1);
+
+      if (nearRoad && random(1) > 0.8) ground[i][j].addCollider(1);
+      if (random(1) > 0.9) ground[i][j].addCollider(0);
+
       if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
     }
   }
@@ -50,6 +53,11 @@ void draw() {
     0, 0, 0, /*Point the camera looks towards*/
     0, 0, -1.0); /*Axis control*/
 
+  //camera(0, 0, 6000, /*Position of the camera itself*/
+  //  0, 0, 0, /*Point the camera looks towards*/
+  //  1.0, 0, 0); /*Axis control*/
+
+
   lights();
   directionalLight(100, 100, 100, -1, -1, -1.6);
 
@@ -57,11 +65,17 @@ void draw() {
     for (int j = 0; j < ground[i].length; j++) {
       ground[i][j].update(vehicle.pos);
       ground[i][j].display();
+      if (ground[i][j].obstacle != null) {
+        PVector[] obs = ground[i][j].obstacle.getPoints();
+        for (int k = 0; k < obs.length; k++) obs[k].add(ground[i][j].pos);
+        if (collidePolyPoly(obs, vehicle.getPoints())) {
+          println(frameCount + " Hit");
+        }
+      }
     }
   }
+
   translate(0, 0, 1);
-  noFill();
-  strokeWeight(10);
 
   vehicle.update();
   vehicle.display();
