@@ -60,12 +60,9 @@ class Tile {
     obstacle = new Collider(collideType);
     this.w = w;
     this.h = h;
-    if (random(1) < 0.95) {
-      type = BLANK;
-    } else {
-      type = floor(random(2, 5));
-    }
-    grassType = floor(random(3)); //random int between 0 & 2
+    //generate grass patches using perlin noise
+    float noiseVal = noise(x*noiseScale, y*noiseScale);
+    tileType = int(map(noiseVal,0,1,0,3)); //grass based on noise
   }
 
   void update(PVector tracked) {
