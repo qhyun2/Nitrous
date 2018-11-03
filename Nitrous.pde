@@ -17,7 +17,7 @@ void setup() {
   ground = new Tile[25][25];
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
-      ground[i][j] = new Tile(-50*ground.length/2 + 50 * i, -50*ground[i].length/2 + 50 * j, 0);
+      ground[i][j] = new Tile(-100*ground.length/2 + 100 * i, -100*ground[i].length/2 + 100 * j, 0);
     }
   }
 

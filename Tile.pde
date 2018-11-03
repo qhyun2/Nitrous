@@ -5,8 +5,8 @@ class Tile {
   Tile(float x, float y, float z) {
     pos = new PVector(x, y, z);
     displaypos = new PVector(x, y, z);
-    this.w = 50;
-    this.h = 50;
+    this.w = 100;
+    this.h = 100;
   }
   
   void update(PVector tracked) {
