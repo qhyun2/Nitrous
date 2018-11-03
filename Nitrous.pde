@@ -9,6 +9,8 @@ int distAway = 350;
 StarterCar vehicle;
 RoadGen roadGen;
 
+PShape car1;
+
 void setup() {
   size(1600, 900, P3D);
   stroke(255);
@@ -30,6 +32,8 @@ void setup() {
   vehicle = new StarterCar(0, 0);
   roadGen = new RoadGen(50, 50);
   roadGen.updateTiles();
+  
+  car1 = loadShape("Assets/Models/testcar.obj");
 }
 
 void draw() {
@@ -39,6 +43,8 @@ void draw() {
     0, 0, 0, /*Point the camera looks towards*/
     0, 0, -1.0); /*Axis control*/
 
+  lights();
+  
   for (int i = 0; i <ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
       ground[i][j].update(vehicle.pos);
