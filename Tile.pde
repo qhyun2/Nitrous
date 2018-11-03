@@ -23,6 +23,7 @@ class Tile {
       rectMode(CENTER);
       fill(200);
       stroke(10);
+      strokeWeight(1);
       rect(0, 0, w, h);
     }
     popMatrix();
