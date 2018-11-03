@@ -32,9 +32,15 @@ void setup() {
 
   testPos = new PVector(0, 0, 0);
   keyW = keyA = keyS = keyD = false;
-   
+
   vehicle = new StarterCar(0, 0, car1);
   roadGen = new RoadGen(xSize, ySize);
+
+  for (int i = 0; i < ground.length; i++) {
+    for (int j = 0; j < ground[i].length; j++) {
+      if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
+    }
+  }
 }
 
 void draw() {
