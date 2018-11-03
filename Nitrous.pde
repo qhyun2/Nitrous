@@ -28,7 +28,7 @@ void setup() {
   testPos = new PVector(0, 0, 0);
   keyW = keyA = keyS = keyD = false;
 
-  vehicle = new StarterCar(0, 0);
+  vehicle = new StarterCar(0, 0, car1);
   roadGen = new RoadGen(50, 50);
   roadGen.updateTiles();
 }

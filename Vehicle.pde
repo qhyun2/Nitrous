@@ -55,7 +55,7 @@ class StarterCar extends Vehicle {
       stroke(10);
       strokeWeight(1);
       //rect(0, 0, 100, 60);
-      shape(car1, 0, 0);
+      shape(carShape, 0, 0);
     }
     popMatrix();
   }
