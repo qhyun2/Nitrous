@@ -18,7 +18,7 @@ void setup() {
   loadAssets();
 
   ground = new Tile[xSize][ySize];
-  float ts = 200; //TileSize
+  float ts = 100; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
       float Xpos = -ts * ground.length/2 + ts * i;
@@ -35,20 +35,18 @@ void setup() {
 
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
-      
+
       boolean nearRoad = testIfRoad(i + 1, j)||testIfRoad(i, j + 1)||testIfRoad(i - 1, j)||testIfRoad(i, j - 1);
-      
-      if(nearRoad && random(1) > 0.8) ground[i][j].addCollider(1);
-      if(random(1) > 0.9) ground[i][j].addCollider(0);
-      
+
+      if (nearRoad && random(1) > 0.8) ground[i][j].addCollider(1);
+      if (random(1) > 0.9) ground[i][j].addCollider(0);
+
       if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
     }
   }
 }
 
 void draw() {
-  
-  println(frameRate);
   background(135, 206, 235);
   translate(width/2, height/2);
   camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
@@ -67,11 +65,17 @@ void draw() {
     for (int j = 0; j < ground[i].length; j++) {
       ground[i][j].update(vehicle.pos);
       ground[i][j].display();
+      if (ground[i][j].obstacle != null) {
+        PVector[] obs = ground[i][j].obstacle.getPoints();
+        for (int k = 0; k < obs.length; k++) obs[k].add(ground[i][j].pos);
+        if (collidePolyPoly(obs, vehicle.getPoints())) {
+          println(frameCount + " Hit");
+        }
+      }
     }
   }
+
   translate(0, 0, 1);
-  noFill();
-  strokeWeight(10);
 
   vehicle.update();
   vehicle.display();

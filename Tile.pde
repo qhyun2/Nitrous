@@ -41,14 +41,17 @@ class Collider {
     shape(obst[type], 0, 0);
     popMatrix();
 
+    
+  }
+
+  PVector[] getPoints() {
     shape(borders);
-    for (int i = 0; i < borders.getVertexCount(); i++) {
-      PVector points = new PVector(borders.getVertex(i).x, borders.getVertex(i).y);
-      points.rotate(0);
-      strokeWeight(20);
-      stroke(255, 255, 0);
-      point(points.x, points.y, 1);
+    int a = borders.getVertexCount();
+    PVector[] pts = new PVector[a];
+    for (int i = 0; i < a; i++) {
+      pts[i] = new PVector(borders.getVertex(i).x, borders.getVertex(i).y);
     }
+    return pts;
   }
 }
 

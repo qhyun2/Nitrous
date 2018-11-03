@@ -1,5 +1,4 @@
 class Vehicle {
-
   PVector pos;
   float vel = 0, acc = 0;
 
@@ -25,19 +24,22 @@ class Vehicle {
     collider.setStroke(false);
   }
 
+  PVector[] getPoints() {
+    shape(collider);
+    int a = collider.getVertexCount();
+    PVector[] pts = new PVector[a];
+    for (int i = 0; i < a; i++) {
+      PVector point = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
+      pts[i] = point.rotate(dir).add(this.pos);
+    }
+    return pts;
+  }
+
   void update() {
 
     //collisions:
     //noFill();
     //noStroke();
-    shape(collider);
-    for (int i = 0; i < collider.getVertexCount(); i++) {
-      PVector points = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
-      points.rotate(dir);
-      strokeWeight(20);
-      stroke(255, 255, 0);
-      point(points.x, points.y, 1);
-    }
 
     float turningSpeed = 0.01;
 
