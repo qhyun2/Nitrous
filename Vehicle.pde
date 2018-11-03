@@ -64,7 +64,11 @@ class Vehicle {
 
     vel += acc;
     if (vel < 0.01) vel = 0;
-
+    
+    //to make sure that dir is always inbetween +1 Pi and -1 Pi
+    dir %= TWO_PI;
+    dir = map(dir, -TWO_PI, TWO_PI, -PI, PI);
+    
     pos.add(PVector.fromAngle(dir).mult(vel));
   }
 }
@@ -76,16 +80,14 @@ class StarterCar extends Vehicle {
 
   void display() {
     pushMatrix();
-    {
-      scale(carScale);
-      rotate(HALF_PI + dir);
-      rotateX(HALF_PI);
-      rectMode(CENTER);
-      fill(225, 128, 0);
-      stroke(10);
-      strokeWeight(1);
-      shape(carShape, 0, 0);
-    }
+    scale(carScale);
+    rotate(HALF_PI + dir);
+    rotateX(HALF_PI);
+    rectMode(CENTER);
+    fill(225, 128, 0);
+    stroke(10);
+    strokeWeight(1);
+    shape(carShape, 0, 0);
     popMatrix();
   }
 }

@@ -7,8 +7,9 @@ Tile[][] ground;
 PVector testPos;
 int distAway = 350;
 int xSize = 50, ySize = 50;
-StarterCar vehicle;
+StarterCar playerCar;
 RoadGen roadGen;
+AICar aiCar;
 
 void setup() {
   size(1600, 900, P3D);
@@ -33,8 +34,9 @@ void setup() {
   testPos = new PVector(0, 0, 0);
   keyW = keyA = keyS = keyD = false;
 
-  vehicle = new StarterCar(0, 0, car1);
+  playerCar = new StarterCar(0, 0, car1);
   roadGen = new RoadGen(xSize, ySize);
+  aiCar = new AICar(10, 10, car1);
 
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
@@ -55,7 +57,7 @@ void draw() {
 
   for (int i = 0; i <ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
-      ground[i][j].update(vehicle.pos);
+      ground[i][j].update(playerCar.pos);
       ground[i][j].display();
     }
   }
@@ -63,8 +65,11 @@ void draw() {
   noFill();
   strokeWeight(10);
 
-  vehicle.update();
-  vehicle.display();
+  playerCar.update();
+  playerCar.display();
+  aiCar.update();
+  aiCar.display();
+  
 }
 
 //Moved this out here since it's a general function
