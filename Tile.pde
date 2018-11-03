@@ -89,10 +89,10 @@ class Tile {
       } else {
         image(grass[tileType], 0, 0, this.w, this.h);
       }
+      
       if (this.obstacle != null) {
         obstacle.display();
       }
-      
       popMatrix();
     }
   }
