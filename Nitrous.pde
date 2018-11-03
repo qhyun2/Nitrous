@@ -7,14 +7,17 @@ Tile[][] ground;
 PVector testPos;
 int distAway = 250;
 StarterCar vehicle;
+RoadGen roadGen;
 
 void setup() {
   size(1600, 900, P3D);
   stroke(255);
   frameRate(60);
   smooth(2);
+  
+  loadAssets();
 
-  ground = new Tile[25][25];
+  ground = new Tile[50][50];
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
       ground[i][j] = new Tile(-100*ground.length/2 + 100 * i, -100*ground[i].length/2 + 100 * j, 0);
@@ -25,10 +28,12 @@ void setup() {
   keyW = keyA = keyS = keyD = false;
 
   vehicle = new StarterCar(0, 0);
+  roadGen = new RoadGen(50, 50);
+  roadGen.updateTiles();
 }
 
 void draw() {
-  background(0);
+  background(135, 206, 235);
   translate(width/2, height/2);
   camera(distAway, distAway, distAway, /*Position of the camera itself*/
     0, 0, 0, /*Point the camera looks towards*/
@@ -40,12 +45,6 @@ void draw() {
       ground[i][j].display();
     }
   }
-
-  //if (keyW) testPos.y -= 10;
-  //if (keyS) testPos.y += 10;
-  //if (keyA) testPos.x -= 10;
-  //if (keyD) testPos.x += 10;
-
   translate(0, 0, 1);
   noFill();
   strokeWeight(10);
