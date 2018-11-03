@@ -58,7 +58,7 @@ class Vehicle {
     //acceleration linear decay
     acc -= 0.01;
     //constraints on acceleration
-    acc = constrain(acc, 0, 0.85);
+    acc = constrain(acc, 0, 0.92);
     //velocity exponetial decay
     vel *= 0.9;
 

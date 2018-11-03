@@ -5,10 +5,9 @@ int y = 100;
 
 Tile[][] ground;
 PVector testPos;
-int distAway = 350;
+int distAway = 400;
 int xSize = 50, ySize = 50;
 StarterCar vehicle;
-RoadGen roadGen;
 
 void setup() {
   size(1600, 900, P3D);
@@ -19,7 +18,7 @@ void setup() {
   loadAssets();
 
   ground = new Tile[xSize][ySize];
-  float ts = 100; //TileSize
+  float ts = 200; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
       float Xpos = -ts * ground.length/2 + ts * i;
@@ -34,7 +33,7 @@ void setup() {
   keyW = keyA = keyS = keyD = false;
 
   vehicle = new StarterCar(0, 0, car1);
-  roadGen = new RoadGen(xSize, ySize);
+  roadGen(xSize, ySize);
 
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
@@ -46,9 +45,14 @@ void setup() {
 void draw() {
   background(135, 206, 235);
   translate(width/2, height/2);
-  camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
+  //camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
+  //  0, 0, 0, /*Point the camera looks towards*/
+  //  0, 0, -1.0); /*Axis control*/
+
+  camera(0, 0, 6000, /*Position of the camera itself*/
     0, 0, 0, /*Point the camera looks towards*/
-    0, 0, -1.0); /*Axis control*/
+    1.0, 0, 0); /*Axis control*/
+
 
   lights();
   directionalLight(100, 100, 100, -1, -1, -1.6);
