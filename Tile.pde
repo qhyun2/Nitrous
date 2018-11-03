@@ -57,11 +57,11 @@ class Tile {
         rotateX(HALF_PI);
         shape(tree, 0, 0);
       } else if (type == BUILDING) {
-        scale(27.5);
+        scale(42);
         rotateX(HALF_PI);
         shape(building, 0, 0);
       } else if (type == CLOCKTOWER) {
-        scale (40);
+        scale(35);
         rotateX(HALF_PI);
         shape(clocktower, 0, 0);
       }
