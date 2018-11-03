@@ -1,6 +1,7 @@
 class Tile {
   PVector pos, displaypos;
   float w, h;
+  
   Tile(float x, float y, float z) {
     pos = new PVector(x, y, z);
     displaypos = new PVector(x, y, z);

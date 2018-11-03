@@ -47,16 +47,17 @@ void draw() {
 }
 
 void keyPressed() {
-  if (key == 'w' || key == 'W') keyW = true;
-  if (key == 's' || key == 'S') keyS = true;
-  if (key == 'a' || key == 'A') keyA = true;
-  if (key == 'd' || key == 'D') keyD = true;
+  
+  if (key == 'w' || key == 'W' || keyCode == 38) keyW = true;
+  if (key == 's' || key == 'S' || keyCode == 40) keyS = true;
+  if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;
+  if (key == 'd' || key == 'D' || keyCode == 39) keyD = true;
   //if (keyCode == 32) spacebar = true;
 }
 
 void keyReleased() {
-  if (key == 'w' || key == 'W') keyW = false;
-  if (key == 's' || key == 'S') keyS = false;
-  if (key == 'a' || key == 'A') keyA = false;
-  if (key == 'd' || key == 'D') keyD = false;
+  if (key == 'w' || key == 'W' || keyCode == 38) keyW = false;
+  if (key == 's' || key == 'S' || keyCode == 40) keyS = false;
+  if (key == 'a' || key == 'A' || keyCode == 37) keyA = false;
+  if (key == 'd' || key == 'D' || keyCode == 39) keyD = false;
 }
