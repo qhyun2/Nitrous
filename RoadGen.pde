@@ -4,7 +4,7 @@ class RoadGen {
   int[] roadY;
 
   RoadGen(int sizeX, int sizeY) {
-  
+
     int roadPieces = 300;
     roadX = new int[roadPieces];
     roadY = new int[roadPieces];
@@ -44,15 +44,15 @@ class RoadGen {
         }
         current++;
       }
-      
+
       len = 10;
       dir = int(random(4));
       //generate new lenght of road and direction
     }
   }
   void updateTiles() {
-    for(int i = 0; i < roadX.length; i++){
-        ground[roadX[i]][roadY[i]].type = 1;
+    for (int i = 0; i < roadX.length; i++) {
+      ground[roadX[i]][roadY[i]].type = 1;
     }
   }
 }
