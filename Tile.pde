@@ -2,30 +2,54 @@ class Collider {
   PShape obj;
   int type;
   float scale;
-  Collider(int type) {
+
+  PShape borders;
+
+  Collider(int type, float w, float h) {
     this.type = type;
     switch (type) {
-      case 0: //Tree, bitch
-        scale = 20;
-        break;
-      case 1: //Those buildy things
-        scale = 27.5;
-        break;
-      case 2: //Ding Dong the clunk has sung
-        scale = 100;
-        break;
-      default: //If u were dumm and didn't pass the write thing
-        scale = 20;
-        break;
+    case 0: //Tree, bitch
+      scale = 20;
+      break;
+    case 1: //Those buildy things
+      scale = 27.5;
+      break;
+    case 2: //Ding Dong the clunk has sung
+      scale = 100;
+      break;
+    default: //If u were dumm and didn't pass the write thing
+      scale = 20;
+      break;
     }
+
+    borders = createShape(
+      RECT, 
+      -w/2, 
+      -h/2, 
+      w, 
+      h
+      );
+    borders.setFill(false);
+    borders.setStroke(false);
   }
-  
+
   void display() {
+    //draw the obstacle itself (model, obj)
+    pushMatrix();
     scale(scale);
     rotateX(HALF_PI);
     shape(obst[type], 0, 0);
+    popMatrix();
+
+    shape(borders);
+    for (int i = 0; i < borders.getVertexCount(); i++) {
+      PVector points = new PVector(borders.getVertex(i).x, borders.getVertex(i).y);
+      points.rotate(0);
+      strokeWeight(20);
+      stroke(255, 255, 0);
+      point(points.x, points.y, 1);
+    }
   }
-  
 }
 
 int BLANK = 0;
@@ -48,21 +72,21 @@ class Tile {
     displaypos = new PVector(x, y, z);
     this.w = w;
     this.h = h;
-    
+
     //generate grass patches using perlin noise
     float noiseVal = noise(x*noiseScale, y*noiseScale);
-    tileType = int(map(noiseVal,0,1,0,3)); //grass based on noise
+    tileType = int(map(noiseVal, 0, 1, 0, 3)); //grass based on noise
   }
-  
+
   Tile(float x, float y, float z, float w, float h, int collideType) {
     pos = new PVector(x, y, z);
     displaypos = new PVector(x, y, z);
-    obstacle = new Collider(collideType);
+    obstacle = new Collider(collideType, w, h);
     this.w = w;
     this.h = h;
     //generate grass patches using perlin noise
     float noiseVal = noise(x*noiseScale, y*noiseScale);
-    tileType = int(map(noiseVal,0,1,0,3)); //grass based on noise
+    tileType = int(map(noiseVal, 0, 1, 0, 3)); //grass based on noise
   }
 
   void update(PVector tracked) {
@@ -89,10 +113,10 @@ class Tile {
       } else {
         image(grass[tileType], 0, 0, this.w, this.h);
       }
-      
       if (this.obstacle != null) {
         obstacle.display();
       }
+
       popMatrix();
     }
   }

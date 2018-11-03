@@ -1,16 +1,16 @@
 //KeyPress booleans
 boolean keyW, keyA, keyS, keyD;
 
+int y = 100;
+
 Tile[][] ground;
 PVector testPos;
-PImage img1;
 int distAway = 350;
 int xSize = 50, ySize = 50;
 StarterCar vehicle;
 RoadGen roadGen;
 
 void setup() {
-  img1 = loadImage("splashscreen.jpg");
   size(1600, 900, P3D);
   stroke(255);
   frameRate(60);
@@ -51,8 +51,7 @@ void draw() {
     0, 0, -1.0); /*Axis control*/
 
   lights();
-  directionalLight(100, 100, 100, -0.75, -0.75, -1);
-  //spotLight(255, 255, 225, distAway, distAway, distAway * 1.6, -0.5, -0.5, -0.8, HALF_PI, 0.5); 
+  directionalLight(100, 100, 100, -1, -1, -1.6);
 
   for (int i = 0; i <ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
@@ -66,10 +65,6 @@ void draw() {
 
   vehicle.update();
   vehicle.display();
-  if (millis() < 3000)//in milliseconds
-  {
-    image(img1, 0, 0);
-  }
 }
 
 //Moved this out here since it's a general function
@@ -78,6 +73,7 @@ boolean range(int value, int min, int max) {
 }
 
 void keyPressed() {
+
   if (key == 'w' || key == 'W' || keyCode == 38) keyW = true;
   if (key == 's' || key == 'S' || keyCode == 40) keyS = true;
   if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;

@@ -1,8 +1,8 @@
 class Vehicle {
-  
+
   PVector pos;
   float vel = 0, acc = 0;
-  
+
   //direction car is facing in radians
   float dir;
   float carWidth = 2.5;
@@ -10,27 +10,35 @@ class Vehicle {
   float carScale = 20;
   PShape carShape;
   PShape collider;
-  
+
   Vehicle(float x, float y, PShape iCarShape) {
     pos = new PVector(x, y);
     carShape = iCarShape;
     collider = createShape(
-      RECT,
-      -carLength*carScale/2,
-      -carWidth*carScale/2,
-      carLength*carScale,
+      RECT, 
+      -carLength*carScale/2, 
+      -carWidth*carScale/2, 
+      carLength*carScale, 
       carWidth*carScale
-    );
-    collider.setStroke(color(255));
-    collider.setStrokeWeight(4);
-    collider.setFill(color(127));
+      );
+    collider.setFill(false);
+    collider.setStroke(false);
   }
 
   void update() {
-    
+
     //collisions:
+    //noFill();
+    //noStroke();
     shape(collider);
-    
+    for (int i = 0; i < collider.getVertexCount(); i++) {
+      PVector points = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
+      points.rotate(dir);
+      strokeWeight(20);
+      stroke(255, 255, 0);
+      point(points.x, points.y, 1);
+    }
+
     float turningSpeed = 0.01;
 
     //left and right turns
@@ -42,7 +50,7 @@ class Vehicle {
       dir += turningSpeed * vel * 0.65;
       collider.rotate(turningSpeed * vel * 0.65);
     }
-    
+
     //gas and break
     if (keyW) acc += 0.03;
     if (keyS) acc -= 0.06;
