@@ -9,8 +9,6 @@ int distAway = 350;
 StarterCar vehicle;
 RoadGen roadGen;
 
-PShape car1;
-
 void setup() {
   size(1600, 900, P3D);
   stroke(255);
@@ -20,9 +18,10 @@ void setup() {
   loadAssets();
 
   ground = new Tile[50][50];
+  float ts = 100; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
-      ground[i][j] = new Tile(-100*ground.length/2 + 100 * i, -100*ground[i].length/2 + 100 * j, 0);
+      ground[i][j] = new Tile(-ts*ground.length/2 + ts * i, -ts*ground[i].length/2 + ts * j, 0, ts, ts);
     }
   }
 
@@ -32,8 +31,6 @@ void setup() {
   vehicle = new StarterCar(0, 0);
   roadGen = new RoadGen(50, 50);
   roadGen.updateTiles();
-  
-  car1 = loadShape("Assets/Models/testcar.obj");
 }
 
 void draw() {
@@ -57,6 +54,11 @@ void draw() {
 
   vehicle.update();
   vehicle.display();
+}
+
+//Moved this out here since it's a general function
+boolean range(int value, int min, int max) {
+  return value > min && value < max;
 }
 
 void keyPressed() {
