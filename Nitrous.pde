@@ -6,6 +6,7 @@ int y = 100;
 Tile[][] ground;
 PVector testPos;
 int distAway = 350;
+int xSize = 50, ySize = 50;
 StarterCar vehicle;
 RoadGen roadGen;
 
@@ -17,7 +18,7 @@ void setup() {
 
   loadAssets();
 
-  ground = new Tile[50][50];
+  ground = new Tile[xSize][ySize];
   float ts = 100; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
@@ -31,10 +32,9 @@ void setup() {
 
   testPos = new PVector(0, 0, 0);
   keyW = keyA = keyS = keyD = false;
-
+   
   vehicle = new StarterCar(0, 0, car1);
-  roadGen = new RoadGen(50, 50);
-  roadGen.updateTiles();
+  roadGen = new RoadGen(xSize, ySize);
 }
 
 void draw() {

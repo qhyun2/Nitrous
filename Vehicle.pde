@@ -1,6 +1,9 @@
 class Vehicle {
+  
   PVector pos;
   float vel = 0, acc = 0;
+  
+  //direction car is facing in radians
   float dir;
   float carWidth = 2.5;
   float carLength = 5.5;
