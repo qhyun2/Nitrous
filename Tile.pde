@@ -2,6 +2,7 @@ int BLANK = 0;
 int ROAD = 1;
 int TREE = 2;
 int BUILDING = 3;
+int CLOCKTOWER = 4;
 
 class Tile {
   PVector pos, displaypos;
@@ -9,8 +10,8 @@ class Tile {
   int type;
   int grassType;
 
-    //probably temporary
-    boolean hastree = false;
+  //probably temporary
+  boolean hastree = false;
 
   Tile(float x, float y, float z, float w, float h) {
     pos = new PVector(x, y, z);
@@ -20,7 +21,7 @@ class Tile {
     if (random(1) < 0.95) {
       type = BLANK;
     } else {
-      type = (random(1) < 0.5) ? TREE : BUILDING;
+      type = floor(random(2, 5));
     }
     grassType = floor(random(3)); //random int between 0 & 2
   }
@@ -59,8 +60,12 @@ class Tile {
         scale(27.5);
         rotateX(HALF_PI);
         shape(building, 0, 0);
+      } else if (type == CLOCKTOWER) {
+        scale (40);
+        rotateX(HALF_PI);
+        shape(clocktower, 0, 0);
       }
+      popMatrix();
     }
-    popMatrix();
   }
 }
