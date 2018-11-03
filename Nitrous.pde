@@ -8,6 +8,8 @@ PVector testPos;
 int distAway = 400;
 int xSize = 50, ySize = 50;
 StarterCar vehicle;
+int delta = 0;
+int lastUpdate;
 
 void setup() {
   size(1600, 900, P3D);
@@ -16,6 +18,7 @@ void setup() {
   smooth(2);
 
   loadAssets();
+  lastUpdate = millis();
 
   ground = new Tile[xSize][ySize];
   float ts = 100; //TileSize
@@ -47,6 +50,11 @@ void setup() {
 }
 
 void draw() {
+
+  ///update timing functions///
+  delta = lastUpdate - millis();
+  lastUpdate = millis();
+
   background(135, 206, 235);
   translate(width/2, height/2);
   camera(distAway, distAway, distAway*1.6, /*Position of the camera itself*/
