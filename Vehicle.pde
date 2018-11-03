@@ -6,7 +6,7 @@ class Vehicle {
   float dir;
   float carWidth = 2.5;
   float carLength = 5.5;
-  float carScale = 20;
+  float carScale = 15;
   PShape carShape;
   PShape collider;
 
