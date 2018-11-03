@@ -8,7 +8,7 @@ class AICar extends Vehicle {
     float turningSpeed = 0.01;
 
     //to make sure that dir is always inbetween +1 Pi and -1 Pi
-    dir %= TWO_PI;
+    dir %= PI;
     dir = map(dir, -TWO_PI, TWO_PI, -PI, PI);
 
     //left and right turns
@@ -41,8 +41,6 @@ class AICar extends Vehicle {
 
     vel += acc;
     if (vel < 0.01) vel = 0;
-    
-
     
     pos.add(PVector.fromAngle(dir).mult(vel));
   }

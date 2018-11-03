@@ -66,8 +66,9 @@ class Vehicle {
     if (vel < 0.01) vel = 0;
     
     //to make sure that dir is always inbetween +1 Pi and -1 Pi
-    dir %= TWO_PI;
+    dir %= PI;
     dir = map(dir, -TWO_PI, TWO_PI, -PI, PI);
+    println(frameCount + " " + dir);
     
     pos.add(PVector.fromAngle(dir).mult(vel));
   }

@@ -12,7 +12,7 @@ RoadGen roadGen;
 AICar aiCar;
 
 void setup() {
-  size(1600, 900, P3D);
+  size(400, 225, P3D);
   stroke(255);
   frameRate(60);
   smooth(2);
