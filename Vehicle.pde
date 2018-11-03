@@ -2,9 +2,16 @@ class Vehicle {
   PVector pos;
   float vel = 0, acc = 0;
   float dir;
-
-  Vehicle(float x, float y) {
+  float carWidth;
+  float carLength;
+  PShape carShape;
+  
+  Vehicle(float x, float y, PShape iCarShape) {
     pos = new PVector(x, y);
+    carShape = iCarShape;
+    carWidth = carShape.width;
+    carLength = carShape.height;
+    print(carWidth, carLength);
   }
 
   void update() {
@@ -33,8 +40,8 @@ class Vehicle {
 }
 
 class StarterCar extends Vehicle {
-  StarterCar(float x, float y) {
-    super(x, y);
+  StarterCar(float x, float y, PShape iCarShape) {
+    super(x, y, iCarShape);
   }
 
   void display() {
