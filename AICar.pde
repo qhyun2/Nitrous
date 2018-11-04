@@ -1,33 +1,32 @@
 class AICar extends Vehicle {
-  AICar(float x, float y, PShape iCarShape){
+  PVector displaypos;
+  AICar(float x, float y, PShape iCarShape) {
     super(x, y, iCarShape);
+    displaypos = new PVector(x, y);
   }
-  
-  void update() {
-    
-    float turningSpeed = 0.01;
+
+  void update(PVector tracked) {
+
+    float turningSpeed = 0.1;
 
     //to make sure that dir is always inbetween +1 Pi and -1 Pi
-    dir %= PI;
-    dir = map(dir, -TWO_PI, TWO_PI, -PI, PI);
+    dir %= TWO_PI;
+    if (dir > PI) dir = dir - TWO_PI;
+    if (dir < -PI) dir = TWO_PI + dir;
 
     //left and right turns
     float slopeBetweenCars = (pos.y-playerCar.pos.y)/(pos.x-playerCar.pos.x);
-    float angleToPlayer = -atan(slopeBetweenCars);
+    
+    float angleToPlayer = atan(slopeBetweenCars);
     
     float deltaTheta = angleToPlayer - dir;
-    if(deltaTheta <= PI) {
-      //turning right
-      if(deltaTheta > 0) {
-        dir += turningSpeed * vel * 0.65;
-        collider.rotate(turningSpeed * vel * 0.65);
-      }
-      //turning left
-      if(deltaTheta < 0) {
-        dir -= turningSpeed * vel * 0.65;
-        collider.rotate(-turningSpeed * vel * 0.65);
-      }
-    }
+    
+    PVector toPlayer = playerCar.pos.copy().sub(pos);
+    
+    if (toPlayer.heading() > dir) dir += turningSpeed;
+    else dir -= turningSpeed;
+    
+    //dir = toPlayer.heading();
     
     //gas and break
     acc += 0.03;
@@ -41,13 +40,17 @@ class AICar extends Vehicle {
 
     vel += acc;
     if (vel < 0.01) vel = 0;
-    
+
     pos.add(PVector.fromAngle(dir).mult(vel));
+
+    displaypos.x = -tracked.x + pos.x;
+    displaypos.y = -tracked.y + pos.y;
   }
-  
+
   void display() {
     pushMatrix();
     {
+      translate(displaypos.x, displaypos.y);
       scale(carScale);
       rotate(HALF_PI + dir);
       rotateX(HALF_PI);
