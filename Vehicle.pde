@@ -1,5 +1,4 @@
 class Vehicle {
-
   PVector pos;
   float vel = 0, acc = 0;
 
@@ -7,7 +6,7 @@ class Vehicle {
   float dir;
   float carWidth = 2.5;
   float carLength = 5.5;
-  float carScale = 20;
+  float carScale = 15;
   PShape carShape;
   PShape collider;
 
@@ -25,20 +24,18 @@ class Vehicle {
     collider.setStroke(false);
   }
 
-  void update() {
-
-    //collisions:
-    //noFill();
-    //noStroke();
+  PVector[] getPoints() {
     shape(collider);
-    for (int i = 0; i < collider.getVertexCount(); i++) {
-      PVector points = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
-      points.rotate(dir);
-      strokeWeight(20);
-      stroke(255, 255, 0);
-      point(points.x, points.y, 1);
+    int a = collider.getVertexCount();
+    PVector[] pts = new PVector[a];
+    for (int i = 0; i < a; i++) {
+      PVector point = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
+      pts[i] = point.rotate(dir).add(this.pos);
     }
+    return pts;
+  }
 
+  void update() {
     float turningSpeed = 0.01;
 
     //left and right turns
@@ -58,7 +55,7 @@ class Vehicle {
     //acceleration linear decay
     acc -= 0.01;
     //constraints on acceleration
-    acc = constrain(acc, 0, 0.85);
+    acc = constrain(acc, 0, 0.92);
     //velocity exponetial decay
     vel *= 0.9;
 
@@ -71,6 +68,24 @@ class Vehicle {
     if(dir < -PI) dir = TWO_PI + dir;
     
     pos.add(PVector.fromAngle(dir).mult(vel));
+
+    //xSize & ySize are the values for the width and height of the ground array
+    
+    float start = -ts * ground.length/2;
+    float end = -ts * ground.length/2 + ts * ground.length;
+    
+    if (pos.x > end) {
+      pos.x = start;
+    }
+    if (pos.x < start) {
+      pos.x = end;
+    }
+    if (pos.y > end) {
+      pos.y = start;
+    }
+    if (pos.y < start) {
+      pos.y = end;
+    }
   }
 }
 
