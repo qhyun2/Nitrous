@@ -50,7 +50,14 @@ void setup() {
 }
 
 void draw() {
+  update();
+}
 
+void drawSplash() {
+  image(splash,0,0, 1600, 900);
+}
+
+void drawGame() {
   ///update timing functions///
   delta = lastUpdate - millis();
   lastUpdate = millis();
@@ -102,6 +109,8 @@ void keyPressed() {
   if (key == 's' || key == 'S' || keyCode == 40) keyS = true;
   if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;
   if (key == 'd' || key == 'D' || keyCode == 39) keyD = true;
+
+  if (key == 't') state = 1;
 }
 
 void keyReleased() {
