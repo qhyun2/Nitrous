@@ -42,7 +42,7 @@ class AICar extends Vehicle {
 
     if (collidePolyPoly(getPoints(), playerCar.getPoints()));
     {
-      //playerCar.health--;
+      playerCar.health--;
     }
   }
   
@@ -53,6 +53,7 @@ class AICar extends Vehicle {
     for (int i = 0; i < a; i++) {
       PVector point = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
       pts[i] = point.rotate(dir).add(this.pos);
+
     }
     return pts;
   }
