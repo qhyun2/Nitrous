@@ -4,11 +4,11 @@ boolean keyW, keyA, keyS, keyD;
 int y = 100;
 
 Tile[][] ground;
-int distAway = 500;
+int distAway = 400;
 int xSize = 50, ySize = 50;
 
 StarterCar playerCar;
-AICar[] aiCar;
+AICar aiCar;
 float ts = 100; //TileSize
 
 int delta = 0;
@@ -32,17 +32,12 @@ void setup() {
       ground[i][j] = new Tile(Xpos, Ypos, 0, ts, ts);
     }
   }
-
+  
   keyW = keyA = keyS = keyD = false;
 
   playerCar = new StarterCar(0, 0, car1);
   roadGen(xSize, ySize);
-  aiCar = new AICar[10];
-
-  for (int i = 0; i < aiCar.length; i++)
-  {
-    aiCar[i] = new AICar(i * 100, 80, car1);
-  }
+  aiCar = new AICar(100, -100, car1);
 
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
@@ -51,6 +46,7 @@ void setup() {
 
       if (nearRoad && random(1) > 0.8) ground[i][j].addCollider(1);
       if (random(1) > 0.9) ground[i][j].addCollider(0);
+
       if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
     }
   }
@@ -61,7 +57,7 @@ void draw() {
 }
 
 void drawSplash() {
-  image(splash, 0, 0, 1600, 900);
+  image(splash,0,0, 1600, 900);
 }
 
 void drawGame() {
@@ -103,11 +99,9 @@ void drawGame() {
 
   playerCar.update();
   playerCar.display();
-  for (AICar car : aiCar)
-  {
-    car.update(playerCar.pos);
-    car.display();
-  }
+  aiCar.update(playerCar.pos);
+  aiCar.display();
+  
 }
 
 //Moved this out here since it's a general function
@@ -122,7 +116,7 @@ void keyPressed() {
   if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;
   if (key == 'd' || key == 'D' || keyCode == 39) keyD = true;
 
-  if (key == 't' || key == 'T') state = 1;
+  if (key == 't') state = 1;
 }
 
 void keyReleased() {
