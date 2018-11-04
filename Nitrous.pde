@@ -4,9 +4,10 @@ boolean keyW, keyA, keyS, keyD;
 int y = 100;
 
 Tile[][] ground;
-PVector testPos;
 int distAway = 400;
 int xSize = 50, ySize = 50;
+float ts = 100; //TileSize
+
 StarterCar vehicle;
 int delta = 0;
 int lastUpdate;
@@ -21,16 +22,14 @@ void setup() {
   lastUpdate = millis();
 
   ground = new Tile[xSize][ySize];
-  float ts = 100; //TileSize
   for (int i = 0; i < ground.length; i++) {
     for (int j = 0; j < ground[i].length; j++) {
       float Xpos = -ts * ground.length/2 + ts * i;
-      float Ypos = -ts*ground[i].length/2 + ts *j;
+      float Ypos = -ts * ground[i].length/2 + ts * j;
       ground[i][j] = new Tile(Xpos, Ypos, 0, ts, ts);
     }
   }
-
-  testPos = new PVector(0, 0, 0);
+  
   keyW = keyA = keyS = keyD = false;
 
   vehicle = new StarterCar(0, 0, car1);

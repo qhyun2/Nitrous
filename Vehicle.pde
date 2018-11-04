@@ -36,11 +36,6 @@ class Vehicle {
   }
 
   void update() {
-
-    //collisions:
-    //noFill();
-    //noStroke();
-
     float turningSpeed = 0.01;
 
     //left and right turns
@@ -68,6 +63,24 @@ class Vehicle {
     if (vel < 0.01) vel = 0;
 
     pos.add(PVector.fromAngle(dir).mult(vel));
+
+    //xSize & ySize are the values for the width and height of the ground array
+    
+    float start = -ts * ground.length/2;
+    float end = -ts * ground.length/2 + ts * ground.length;
+    
+    if (pos.x > end) {
+      pos.x = start;
+    }
+    if (pos.x < start) {
+      pos.x = end;
+    }
+    if (pos.y > end) {
+      pos.y = start;
+    }
+    if (pos.y < start) {
+      pos.y = end;
+    }
   }
 }
 
