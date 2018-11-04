@@ -64,7 +64,7 @@ class Vehicle {
     acc -= (ground[carTileX][carTileY].type == ROAD) ? 0.005 : 0.03;
 
     //constraints on acceleration
-    
+
     float maxSpeed = ground[carTileX][carTileY].type == ROAD ? 1.4:0.9;
 
     acc = constrain(acc, 0, maxSpeed);
@@ -143,10 +143,22 @@ class StarterCar extends Vehicle {
       imageMode(CORNER);
       rect(-w/2 + h/8, -h/2 + h/8, map(constrain(health, 0, fullHealth), fullHealth, 0, w - h/4, 0), h - h/4, h/2);
       image(healthIcon, -250, -24, 50, 50);
-      textSize(32);
-      fill(0,255,20);
-      text("Time alive: " + frameCount/30 + " seconds", 900, 20);
     }
     popMatrix();
+    textSize(32);
+
+    textAlign(RIGHT, CENTER);
+
+    String text = "Time alive: " + frameCount/30 + " seconds";
+    fill(0);
+    text(text, width - 22, 22);
+    fill(255);
+    text(text, width - 20, 20);
+
+    text = "Score: " + score;
+    fill(0);
+    text(text, width - 22, 52);
+    fill(255);
+    text(text, width - 20, 50);
   }
 }

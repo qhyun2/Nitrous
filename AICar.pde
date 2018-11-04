@@ -39,11 +39,6 @@ class AICar extends Vehicle {
 
     collider.translate(pos.x, pos.y, 10);
     collider.rotate(dir);
-
-    if (collidePolyPoly(getPoints(), playerCar.getPoints()));
-    {
-      playerCar.health--;
-    }
   }
   
   PVector[] getPoints() {

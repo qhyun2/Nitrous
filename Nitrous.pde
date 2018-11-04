@@ -1,5 +1,6 @@
 //KeyPress booleans
 boolean keyW, keyA, keyS, keyD;
+int score = 0; 
 
 Tile[][] ground;
 int distAway = 500;
@@ -35,7 +36,7 @@ void setup() {
 
   playerCar = new StarterCar(0, 0, car1);
   roadGen(xSize, ySize);
-  aiCar = new AICar[1];
+  aiCar = new AICar[8];
 
   for (int i = 0; i < aiCar.length; i++)
   {
@@ -97,6 +98,7 @@ void drawGame() {
             playerCar.vel = 0;
             playerCar.acc = 0;
             ground[i][j].obstacle = null;
+            score += 50;
           }
         }
       }
