@@ -39,7 +39,7 @@ void setup() {
 
   for (int i = 0; i < aiCar.length; i++)
   {
-    aiCar[i] = new AICar(i * 100, 80, car1);
+    aiCar[i] = new AICar(ts * random(-3, 3), ts * random(-4, 4), car1);
   }
 
   for (int i = 0; i < ground.length; i++) {
@@ -52,7 +52,7 @@ void setup() {
       if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
     }
   }
-  
+
   ground[49][49].type = 1;
   ground[49][49].tileType = 8;
 }
@@ -104,14 +104,29 @@ void drawGame() {
       }
     }
 
+    for (int i = 0; i < aiCar.length; i++) {
+      if (aiCar[i] != null) {
+        if (collidePolyPoly(aiCar[i].getPoints(), playerCar.getPoints())) {
+          playerCar.health -= playerCar.fullHealth / aiCar.length;
+          aiCar[i] = null;
+        }
+      }
+    }
+
+    if (playerCar.health <= 0) {
+      state = 2;
+    }
+
     translate(0, 0, 1);
 
     playerCar.update();
     playerCar.display();
     for (AICar car : aiCar)
     {
-      car.update(playerCar.pos);
-      car.display();
+      if (car != null) {
+        car.update(playerCar.pos);
+        car.display();
+      }
     }
   }
   popMatrix();

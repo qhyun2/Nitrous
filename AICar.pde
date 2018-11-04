@@ -6,9 +6,6 @@ class AICar extends Vehicle {
   }
 
   void update(PVector tracked) {
-
-    float turningSpeed = 0.1;
-
     //to make sure that dir is always inbetween +1 Pi and -1 Pi
     dir %= TWO_PI;
     if (dir > PI) dir = dir - TWO_PI;
@@ -47,18 +44,17 @@ class AICar extends Vehicle {
     {
       //playerCar.health--;
     }
-
-    //collisions:
-    pushMatrix();
-    collider.translate(displaypos.x, displaypos.y, 10);
-    for (int i = 0; i < collider.getVertexCount(); i++) {
-      PVector points = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
-      points.rotate(dir);
-      strokeWeight(20);
-      stroke(255, 255, 0);
-      point(points.x, points.y, 1);
+  }
+  
+  PVector[] getPoints() {
+    shape(collider);
+    int a = collider.getVertexCount();
+    PVector[] pts = new PVector[a];
+    for (int i = 0; i < a; i++) {
+      PVector point = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
+      pts[i] = point.rotate(dir).add(this.pos);
     }
-    popMatrix();
+    return pts;
   }
 
   void display() {
