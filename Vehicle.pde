@@ -47,7 +47,6 @@ class Vehicle {
   }
 
   void update() {
-
     //collisions:
     for (int i = 0; i < collider.getVertexCount(); i++) {
       PVector points = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
@@ -62,8 +61,8 @@ class Vehicle {
 
     int carTileX = constrain(int((pos.x + (ts / 2)) / ts + 25), 0, 49);
     int carTileY = constrain(int((pos.y + (ts / 2)) / ts + 25), 0, 49);
-    
-    acc -= ground[carTileX][carTileY].type == ROAD ? 0.005:0.03;
+    acc -= (ground[carTileX][carTileY].type == ROAD) ? 0.005 : 0.03;
+
     //constraints on acceleration
     
     float maxSpeed = ground[carTileX][carTileY].type == ROAD ? 1.4:0.9;
