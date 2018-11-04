@@ -15,7 +15,8 @@ int lastUpdate;
 
 
 void setup() {
-  size(1600, 900, P3D);
+  //size(1600, 900, P3D);
+  fullScreen(P3D);
   stroke(255);
   frameRate(60);
   smooth(2);
@@ -36,11 +37,11 @@ void setup() {
 
   playerCar = new StarterCar(0, 0, car1);
   roadGen(xSize, ySize);
-  aiCar = new AICar[8];
+  aiCar = new AICar[3];
 
   for (int i = 0; i < aiCar.length; i++)
   {
-    aiCar[i] = new AICar(ts * random(-3, 3), ts * random(-4, 4), car1);
+    aiCar[i] = new AICar(ts * (10 + random(0, 10)), ts * (10 + random(0, 10)), car1);
   }
 
   for (int i = 0; i < ground.length; i++) {
@@ -63,7 +64,7 @@ void draw() {
 }
 
 void drawSplash() {
-  image(splash, 0, 0, 1600, 900);
+  image(splash, 0, 0, width, height);
 }
 
 void drawGame() {
@@ -95,8 +96,8 @@ void drawGame() {
           for (int k = 0; k < obs.length; k++) obs[k].add(ground[i][j].pos);
           if (collidePolyPoly(obs, playerCar.getPoints())) {
             //playerCar.health -= 10;
-            playerCar.vel = 0;
-            playerCar.acc = 0;
+            playerCar.vel-=10;
+            //playerCar.acc = 0;
             ground[i][j].obstacle = null;
             score += 50;
           }
@@ -107,7 +108,7 @@ void drawGame() {
     for (int i = 0; i < aiCar.length; i++) {
       if (aiCar[i] != null) {
         if (collidePolyPoly(aiCar[i].getPoints(), playerCar.getPoints())) {
-          playerCar.health -= playerCar.fullHealth / aiCar.length;
+          playerCar.health -= playerCar.fullHealth / aiCar.length + 1;
           aiCar[i] = null;
         }
       }
