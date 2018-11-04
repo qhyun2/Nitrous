@@ -1,4 +1,4 @@
-int state = 1;
+int state = 0;
 int SPLASH = 0;
 int PLAY = 1;
 int GAMEOVER = 2;

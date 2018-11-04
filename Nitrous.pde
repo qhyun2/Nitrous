@@ -94,7 +94,7 @@ void drawGame() {
           PVector[] obs = ground[i][j].obstacle.getPoints();
           for (int k = 0; k < obs.length; k++) obs[k].add(ground[i][j].pos);
           if (collidePolyPoly(obs, playerCar.getPoints())) {
-            playerCar.health -= 10;
+            //playerCar.health -= 10;
             playerCar.vel = 0;
             playerCar.acc = 0;
             ground[i][j].obstacle = null;
@@ -144,8 +144,7 @@ void keyPressed() {
   if (key == 's' || key == 'S' || keyCode == 40) keyS = true;
   if (key == 'a' || key == 'A' || keyCode == 37) keyA = true;
   if (key == 'd' || key == 'D' || keyCode == 39) keyD = true;
-
-  if (key == 't' || key == 'T') state = 1;
+  if (state == 0) state = 1;
 }
 
 void keyReleased() {
