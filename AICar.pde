@@ -15,19 +15,14 @@ class AICar extends Vehicle {
     if (dir < -PI) dir = TWO_PI + dir;
 
     //left and right turns
-    float slopeBetweenCars = (pos.y-playerCar.pos.y)/(pos.x-playerCar.pos.x);
-    
-    float angleToPlayer = atan(slopeBetweenCars);
-    
-    float deltaTheta = angleToPlayer - dir;
-    
+
     PVector toPlayer = playerCar.pos.copy().sub(pos);
-    
-    if (toPlayer.heading() > dir) dir += turningSpeed;
-    else dir -= turningSpeed;
-    
+
+    //if (toPlayer.heading() > dir) dir += turningSpeed;
+    //else dir -= turningSpeed;
+
     //gas and break
-    acc += 0.01;
+    acc += 0.03;
 
     //acceleration linear decay
     acc -= 0.01;
@@ -39,10 +34,31 @@ class AICar extends Vehicle {
     vel += acc;
     if (vel < 0.01) vel = 0;
 
-    pos.add(PVector.fromAngle(dir).mult(vel));
+    pos.add(PVector.fromAngle(toPlayer.heading()).mult(vel));
+    dir = toPlayer.heading();
 
     displaypos.x = -tracked.x + pos.x;
     displaypos.y = -tracked.y + pos.y;
+
+    collider.translate(pos.x, pos.y, 10);
+    collider.rotate(dir);
+
+    if (collidePolyPoly(getPoints(), playerCar.getPoints()));
+    {
+      //playerCar.health--;
+    }
+
+    //collisions:
+    pushMatrix();
+    collider.translate(displaypos.x, displaypos.y, 10);
+    for (int i = 0; i < collider.getVertexCount(); i++) {
+      PVector points = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
+      points.rotate(dir);
+      strokeWeight(20);
+      stroke(255, 255, 0);
+      point(points.x, points.y, 1);
+    }
+    popMatrix();
   }
 
   void display() {

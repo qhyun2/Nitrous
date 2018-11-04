@@ -12,7 +12,7 @@ class Collider {
       scale = 16;
       break;
     case 1: //Those buildy things
-      scale = 32;
+      scale = 50;
       break;
     case 2: //Ding Dong the clunk has sung
       scale = 100;

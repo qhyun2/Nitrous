@@ -1,6 +1,6 @@
 PImage[] roads;
 PImage[] grass;
-PImage splash;
+PImage splash, healthIcon;
 PShape car1;
 PShape[] obst = new PShape[3];
 
@@ -29,6 +29,7 @@ void loadAssets() {
 
   car1 = loadShape("Assets/Models/testcar.obj");
   splash = loadImage("Assets/splashscreen.jpg");
+  healthIcon = loadImage("Assets/Sprites/health.png");
   obst[TREE] = loadShape("Assets/Models/AppleTree.obj");
   obst[BUILDING] = loadShape("Assets/Models/Building2.obj");
   obst[CLOCKTOWER] = loadShape("Assets/Models/ClockTower.obj");
