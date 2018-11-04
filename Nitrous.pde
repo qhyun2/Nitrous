@@ -35,7 +35,7 @@ void setup() {
 
   playerCar = new StarterCar(0, 0, car1);
   roadGen(xSize, ySize);
-  aiCar = new AICar[2];
+  aiCar = new AICar[1];
 
   for (int i = 0; i < aiCar.length; i++)
   {
@@ -52,9 +52,6 @@ void setup() {
       if (ground[i][j].type == ROAD) ground[i][j].obstacle = null;
     }
   }
-  
-  ground[49][49].type = 1;
-  ground[49][49].tileType = 8;
 }
 
 void draw() {
@@ -70,7 +67,7 @@ void drawSplash() {
 
 void drawGame() {
   //println(delta);
-
+  drawScore();
 
   pushMatrix();
   {
@@ -96,6 +93,7 @@ void drawGame() {
           PVector[] obs = ground[i][j].obstacle.getPoints();
           for (int k = 0; k < obs.length; k++) obs[k].add(ground[i][j].pos);
           if (collidePolyPoly(obs, playerCar.getPoints())) {
+            playerCar.health -= 10;
             playerCar.vel = 0;
             playerCar.acc = 0;
             ground[i][j].obstacle = null;
@@ -144,9 +142,9 @@ void keyReleased() {
 
 //needed features
 // player health DONE
-// framerate based updates
+// framerate based updates DONE
 // ai collision with player
 // ai collision with each other
 // score system
 // ai wrap around
-// faster on roads
+// faster on roads DONE

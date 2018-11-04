@@ -2,6 +2,7 @@ int state = 1;
 int SPLASH = 0;
 int PLAY = 1;
 int GAMEOVER = 2;
+boolean dead = false;
 
 void update(){
    switch(state){
@@ -12,8 +13,7 @@ void update(){
       drawGame();
       break;
       case 2:
-      println("Game Over!");
-      background(0,0,0);
+      dead = true;
       break;
    }
 }

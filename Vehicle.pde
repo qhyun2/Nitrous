@@ -52,7 +52,8 @@ class Vehicle {
     for (int i = 0; i < collider.getVertexCount(); i++) {
       PVector points = new PVector(collider.getVertex(i).x, collider.getVertex(i).y);
       points.rotate(dir);
-      strokeWeight(20);
+      //points are invisible
+      strokeWeight(0);
       stroke(255, 255, 0);
       point(points.x, points.y, 1);
     }
@@ -61,9 +62,8 @@ class Vehicle {
 
     int carTileX = constrain(int((pos.x + (ts / 2)) / ts + 25), 0, 49);
     int carTileY = constrain(int((pos.y + (ts / 2)) / ts + 25), 0, 49);
-
+    
     acc -= ground[carTileX][carTileY].type == ROAD ? 0.005:0.03;
-    println(ground[carTileX][carTileY].type == ROAD);
     //constraints on acceleration
     
     float maxSpeed = ground[carTileX][carTileY].type == ROAD ? 1.4:0.9;
@@ -144,6 +144,9 @@ class StarterCar extends Vehicle {
       imageMode(CORNER);
       rect(-w/2 + h/8, -h/2 + h/8, map(constrain(health, 0, fullHealth), fullHealth, 0, w - h/4, 0), h - h/4, h/2);
       image(healthIcon, -250, -24, 50, 50);
+      textSize(32);
+      fill(0,255,20);
+      text("Time alive: " + frameCount/30 + " seconds", 900, 20);
     }
     popMatrix();
   }
