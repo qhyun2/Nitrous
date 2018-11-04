@@ -24,10 +24,12 @@ class AICar extends Vehicle {
     PVector toPlayer = playerCar.pos.copy().sub(pos);
     
     if (toPlayer.heading() > dir) dir += turningSpeed;
-    else dir -= turningSpeed;
+    if (toPlayer.heading() < dir) dir -= turningSpeed;
+    
+    //dir = toPlayer.heading();
     
     //gas and break
-    acc += 0.01;
+    acc += 0.03;
 
     //acceleration linear decay
     acc -= 0.01;
