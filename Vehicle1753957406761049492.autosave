@@ -36,6 +36,11 @@ class Vehicle {
   }
 
   void update() {
+
+    //collisions:
+    //noFill();
+    //noStroke();
+
     float turningSpeed = 0.01;
 
     //left and right turns
@@ -44,7 +49,7 @@ class Vehicle {
       collider.rotate(-turningSpeed * vel * 0.65);
     }
     if (keyD) {
-      dir += turningSpeed * vel * 0.65;
+      dir += turningSpeed * vel * 0.65 * delta;
       collider.rotate(turningSpeed * vel * 0.65);
     }
 
@@ -61,31 +66,8 @@ class Vehicle {
 
     vel += acc;
     if (vel < 0.01) vel = 0;
-    
-    //to make sure that dir is always inbetween +1 Pi and -1 Pi
-    dir %= TWO_PI;
-    if(dir > PI) dir = dir - TWO_PI;
-    if(dir < -PI) dir = TWO_PI + dir;
-    
-    pos.add(PVector.fromAngle(dir).mult(vel));
 
-    //xSize & ySize are the values for the width and height of the ground array
-    
-    float start = -ts * ground.length/2;
-    float end = -ts * ground.length/2 + ts * ground.length;
-    
-    if (pos.x > end) {
-      pos.x = start;
-    }
-    if (pos.x < start) {
-      pos.x = end;
-    }
-    if (pos.y > end) {
-      pos.y = start;
-    }
-    if (pos.y < start) {
-      pos.y = end;
-    }
+    pos.add(PVector.fromAngle(dir).mult(vel));
   }
 }
 
@@ -96,14 +78,16 @@ class StarterCar extends Vehicle {
 
   void display() {
     pushMatrix();
-    scale(carScale);
-    rotate(HALF_PI + dir);
-    rotateX(HALF_PI);
-    rectMode(CENTER);
-    fill(225, 128, 0);
-    stroke(10);
-    strokeWeight(1);
-    shape(carShape, 0, 0);
+    {
+      scale(carScale);
+      rotate(HALF_PI + dir);
+      rotateX(HALF_PI);
+      rectMode(CENTER);
+      fill(225, 128, 0);
+      stroke(10);
+      strokeWeight(1);
+      shape(carShape, 0, 0);
+    }
     popMatrix();
   }
 }
