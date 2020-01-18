@@ -1,6 +1,6 @@
+Nitrous-Executables.zip
+application.*/
+.vscode/
 .DS_Store
-applet
-application.linux32
-application.linux64
-application.macosx
 *.autosave
+applet
