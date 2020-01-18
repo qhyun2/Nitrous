@@ -1,6 +1,6 @@
 # Nitrous
 
-Nitrous is a a 3D driving game made using Processing 5 at Trent University's
+Nitrous is a 3D driving game made using Processing 5 at Trent University's
 [Electric City Hacks](https://echacks.dev/) 2018. This hackathon took place over
 37 hours. The game was created by
 [Matthew Brown](https://github.com/matthew-e-brown), Connor Stinson,
