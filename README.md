@@ -1,11 +1,21 @@
 # Nitrous
-### A 3D driving game made using Processing 5 at Electric City Hacks 2018
-#### Features
- - Realistic driving physics
-     - Destructible terrain
-     - Accerator and brake
-     - Increased drag when not driving on roads
- - Randomly generated map using Perlin Noise
- - Custom 3d models
 
-![Image of Game](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/718/367/datas/gallery.jpg)
+Nitrous is a 3D driving game made using Processing 5 at Trent University's
+[Electric City Hacks](https://echacks.dev/) 2018. This hackathon took place over
+37 hours. The game was created by
+[Matthew Brown](https://github.com/matthew-e-brown), Connor Stinson,
+[Isaiah Witzke](https://github.com/IsaiahWitzke), and
+[Howard Yun](https://github.com/qhyun2) (alphabetical).
+
+## Features
+
+- Realistic driving physics
+  - Destructible terrain
+  - Accelerator and brake
+  - Slowed movement when driving off-road
+- Randomly generated map using Perlin Noise
+- Custom 3D models created in Blender
+
+---
+
+![Image of the game](./screencap.png?raw=true "Nitrous, in-game")
